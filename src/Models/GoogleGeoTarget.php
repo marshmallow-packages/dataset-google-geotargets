@@ -41,7 +41,18 @@ class GoogleGeoTarget extends Model
 
     public function cities()
     {
-    	return $this->hasMany(self::class, 'parent_id', 'id');
+    	return $this->hasMany(self::class, 'parent_id', 'id')
+                    ->select('google_geo_targets.*')
+                    ->join(
+                        'google_geo_target_types',
+                        'google_geo_targets.google_geo_target_type_id',
+                        '=',
+                        'google_geo_target_types.id'
+                    )
+                    ->where(
+                        'google_geo_target_types.google_name',
+                        self::CITY
+                    );
     }
 
     public function type()
