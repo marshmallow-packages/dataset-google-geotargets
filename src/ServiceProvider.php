@@ -27,9 +27,11 @@ class ServiceProvider extends BaseServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/google-geotargets.php' => config_path('google-geotargets.php'),
+            __DIR__ . '/../config/google-geotargets.php' => config_path('google-geotargets.php'),
         ]);
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->publishes([
+            __DIR__ . '/../database/migrations/' => database_path('migrations'),
+        ], 'migrations');
     }
 }
